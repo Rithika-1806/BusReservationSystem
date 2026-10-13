@@ -32,22 +32,45 @@ public class Main {
             sc.nextLine();
 
             if (choice == 1) {
+
                 displayBus(bus1);
                 displayBus(bus2);
 
             } else if (choice == 2) {
+
                 System.out.print("Enter passenger name: ");
-                String name = sc.nextLine();
+                String name = sc.nextLine().trim();
+
+                if (name.isEmpty()) {
+                    System.out.println("Passenger name cannot be empty.");
+                    continue;
+                }
 
                 System.out.print("Enter age: ");
                 int age = sc.nextInt();
                 sc.nextLine();
 
-                System.out.print("Enter gender: ");
-                String gender = sc.nextLine();
+                if (age <= 0 || age > 120) {
+                    System.out.println(
+                            "Invalid age. Please enter an age between 1 and 120.");
+                    continue;
+                }
+
+                System.out.print("Enter gender (M/F/Other): ");
+                String gender = sc.nextLine().trim();
+
+                if (!gender.equalsIgnoreCase("M")
+                        && !gender.equalsIgnoreCase("F")
+                        && !gender.equalsIgnoreCase("Other")) {
+
+                    System.out.println(
+                            "Invalid gender. Please enter M, F, or Other.");
+                    continue;
+                }
 
                 System.out.print("Enter bus number (101 or 102): ");
                 int busNumber = sc.nextInt();
+                sc.nextLine();
 
                 Bus selectedBus = null;
 
@@ -58,6 +81,7 @@ public class Main {
                 }
 
                 if (selectedBus != null && selectedBus.totalSeats > 0) {
+
                     Passenger passenger =
                             new Passenger(name, age, gender);
 
@@ -72,10 +96,12 @@ public class Main {
                     reservation.displayReservation();
 
                 } else {
-                    System.out.println("Invalid bus number or no seats available.");
+                    System.out.println(
+                            "Invalid bus number or no seats available.");
                 }
 
             } else if (choice == 3) {
+
                 if (reservations.isEmpty()) {
                     System.out.println("No reservations found.");
                 } else {
@@ -85,18 +111,25 @@ public class Main {
                 }
 
             } else if (choice == 4) {
+
                 System.out.print("Enter reservation ID to cancel: ");
                 int id = sc.nextInt();
+                sc.nextLine();
 
                 boolean found = false;
 
                 for (int i = 0; i < reservations.size(); i++) {
+
                     Reservation reservation = reservations.get(i);
 
                     if (reservation.reservationId == id) {
+
                         reservation.bus.totalSeats++;
                         reservations.remove(i);
-                        System.out.println("Reservation cancelled successfully.");
+
+                        System.out.println(
+                                "Reservation cancelled successfully.");
+
                         found = true;
                         break;
                     }
@@ -107,9 +140,12 @@ public class Main {
                 }
 
             } else if (choice == 5) {
-                System.out.println("Thank you for using the Bus Reservation System.");
+
+                System.out.println(
+                        "Thank you for using the Bus Reservation System.");
 
             } else {
+
                 System.out.println("Invalid choice. Please try again.");
             }
 
@@ -119,6 +155,7 @@ public class Main {
     }
 
     public static void displayBus(Bus bus) {
+
         System.out.println("---------------------------");
         System.out.println("Bus Number: " + bus.busNumber);
         System.out.println("Bus Name: " + bus.busName);
