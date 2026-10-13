@@ -125,10 +125,10 @@ public class Main {
 
                     Reservation reservation = reservations.get(i);
 
-                    if (reservation.reservationId == id) {
+                    if (reservation.getReservationId() == id) {
 
-                        reservation.bus.setTotalSeats(
-                                reservation.bus.getTotalSeats() + 1);
+                        reservation.getBus().setTotalSeats(
+                                reservation.getBus().getTotalSeats() + 1);
 
                         reservations.remove(i);
 
