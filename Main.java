@@ -28,7 +28,7 @@ public class Main {
             System.out.println("5. Exit");
             System.out.print("Enter your choice: ");
 
-            choice = sc.nextInt();
+            choice = getNumber(sc);
             sc.nextLine();
 
             if (choice == 1) {
@@ -47,7 +47,7 @@ public class Main {
                 }
 
                 System.out.print("Enter age: ");
-                int age = sc.nextInt();
+                int age = getNumber(sc);
                 sc.nextLine();
 
                 if (age <= 0 || age > 120) {
@@ -69,7 +69,7 @@ public class Main {
                 }
 
                 System.out.print("Enter bus number (101 or 102): ");
-                int busNumber = sc.nextInt();
+                int busNumber = getNumber(sc);
                 sc.nextLine();
 
                 Bus selectedBus = null;
@@ -80,7 +80,8 @@ public class Main {
                     selectedBus = bus2;
                 }
 
-                if (selectedBus != null && selectedBus.totalSeats > 0) {
+                if (selectedBus != null
+                        && selectedBus.getTotalSeats() > 0) {
 
                     Passenger passenger =
                             new Passenger(name, age, gender);
@@ -90,7 +91,9 @@ public class Main {
 
                     reservations.add(reservation);
                     nextReservationId++;
-                    selectedBus.totalSeats--;
+
+                    selectedBus.setTotalSeats(
+                            selectedBus.getTotalSeats() - 1);
 
                     System.out.println("Ticket booked successfully!");
                     reservation.displayReservation();
@@ -113,7 +116,7 @@ public class Main {
             } else if (choice == 4) {
 
                 System.out.print("Enter reservation ID to cancel: ");
-                int id = sc.nextInt();
+                int id = getNumber(sc);
                 sc.nextLine();
 
                 boolean found = false;
@@ -124,7 +127,9 @@ public class Main {
 
                     if (reservation.reservationId == id) {
 
-                        reservation.bus.totalSeats++;
+                        reservation.bus.setTotalSeats(
+                                reservation.bus.getTotalSeats() + 1);
+
                         reservations.remove(i);
 
                         System.out.println(
@@ -157,10 +162,23 @@ public class Main {
     public static void displayBus(Bus bus) {
 
         System.out.println("---------------------------");
-        System.out.println("Bus Number: " + bus.busNumber);
-        System.out.println("Bus Name: " + bus.busName);
-        System.out.println("Route: " + bus.source + " to " + bus.destination);
-        System.out.println("Available Seats: " + bus.totalSeats);
-        System.out.println("Fare: Rs. " + bus.fare);
+        System.out.println("Bus Number: " + bus.getBusNumber());
+        System.out.println("Bus Name: " + bus.getBusName());
+        System.out.println("Route: " + bus.getSource()
+                + " to " + bus.getDestination());
+        System.out.println("Available Seats: " + bus.getTotalSeats());
+        System.out.println("Fare: Rs. " + bus.getFare());
+    }
+
+    public static int getNumber(Scanner sc) {
+
+        while (!sc.hasNextInt()) {
+            System.out.println(
+                    "Invalid input. Please enter a number.");
+            sc.next();
+            System.out.print("Enter again: ");
+        }
+
+        return sc.nextInt();
     }
 }
