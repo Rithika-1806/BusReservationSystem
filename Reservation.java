@@ -1,4 +1,3 @@
-
 public class Reservation {
 
     int reservationId;
@@ -15,9 +14,10 @@ public class Reservation {
 
         System.out.println("\n===== RESERVATION DETAILS =====");
         System.out.println("Reservation ID: " + reservationId);
-        System.out.println("Passenger Name: " + passenger.passengerName);
-        System.out.println("Passenger Age: " + passenger.age);
-        System.out.println("Gender: " + passenger.gender);
+        System.out.println("Passenger Name: "
+                + passenger.getPassengerName());
+        System.out.println("Passenger Age: " + passenger.getAge());
+        System.out.println("Gender: " + passenger.getGender());
         System.out.println("Bus Number: " + bus.getBusNumber());
         System.out.println("Bus Name: " + bus.getBusName());
         System.out.println("Route: " + bus.getSource()
